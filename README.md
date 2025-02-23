@@ -13,3 +13,7 @@ Herramientas en este repositorio/ Tools in this repository:
 Cada proyecto tiene su propio README para ayudarte a entender su fucnionamiento.
 
 Each project has its own README to help you understand how it works.
+
+**No uses estas herramientas sin el debido consentimiento ni con ningun fin delictivo, yo no me hago responsable del uso que se le pudiera dar a las mismas.**
+
+**Do not use these tools without due consent or for any criminal purpose, I am not responsible for any use that may be given to them.**
